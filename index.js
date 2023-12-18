@@ -20,16 +20,25 @@ app.use(function(req,res,next){
     next();
 });
 
-app.use(function(req,res,next){
-    console.log("hello from middleware2");
-    next();
-});
+// app.use(function(req,res,next){
+//     console.log("hello from middleware2");
+//     next();
+// });
+app.set("view engine","ejs");
+app.use(express.static("./public"));
+
 
 app.get("/",(req,res)=>{
-    res.send("hello dosto kaise ho sab, aur kya halchal");
+    res.render("index",{name:"Pranjal"});
 })
-app.get("/profile",(req,res)=>{
-    res.send("profile page");
+
+app.get("/contact",(req,res)=>{
+    res.render("contact");
+})
+
+//dynamic routing
+app.get("/profile/:resName",(req,res)=>{
+    res.send(`${req.params.resName} loves you so much`);
 })  
 
 app.listen(3000);
